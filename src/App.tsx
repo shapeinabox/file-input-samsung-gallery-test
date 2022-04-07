@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [value, setValue] = useState<string>();
+  const [files, setFiles] = useState<FileList>();
+
+  const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    if (e.target.files) {
+      setFiles(e.target.files);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input
+          type="file"
+          name="file[]"
+          multiple={true}
+          onChange={onFileSelected}
+          accept="image/*,video/*"
+        />
+      </div>
+      <div className="data">
+        <h4 style={{ marginTop: "10px" }}>Files</h4>
+        <ol style={{ marginTop: "10px" }}>
+          {files &&
+            files.length > 0 &&
+            Object.values(files).map((file) => <li>{file.name}</li>)}
+        </ol>
+        <h4 style={{ marginTop: "10px" }}>Event Value</h4>
+        <div style={{ marginTop: "10px" }}>{value}</div>
+      </div>
     </div>
   );
 }

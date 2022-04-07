@@ -1,0 +1,6 @@
+{
+	"appId": "cap.test.co",
+	"appName": "capacitor-test",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
